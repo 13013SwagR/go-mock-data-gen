@@ -13,14 +13,13 @@ a function/method takes parameters, 0 or more objects
 
 filters:
   size: min, max, undermin, overmax
-    limit: overwrite min and max defaults
   empty: empty | !empty
   nul: nil | !nil
   true|false: true | false
   numbers: hex, binary, base16, base32, base64
 value ranges:
   string:
-    alpha, numeric, alphanumeric, special characters, utf-8, utf-16, regex
+    alpha, alphanumeric, special characters, utf-8, utf-16, regex, nasty string list
   bool: true|false, nul, empty,
   int: size, true|false, nul, empty
   int8: size, true|false, nul, empty
@@ -40,3 +39,15 @@ value ranges:
   float64:
   complex64:
   complex128:
+
+  ## Implementation
+    * code generator service
+    * code parsing service
+      parser.Read(code string) (string, error)
+    * data generator service
+      dataGenClient.generate(data_type Type, []filter) (string, error)
+    * filtering service
+      filteringClient.reduce(data interface{}, type Type) (error)
+    * data provider
+      dataProvider.GetNames(setList []string)
+      dataProvider.GetNumbers(setList) ([]numbers)
